@@ -508,3 +508,13 @@ temp/
 .history
 
 # End of https://www.gitignore.io/api/git,node,aspnetcore,visualstudiocode
+
+### ignore my dist files to build on the cloud
+dist/
+ssr/
+
+### ignore local connection strings e others
+appsettings.json
+appSettings.json
+test.json
+commit/
