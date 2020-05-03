@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/dist/semantic.min.css" />
+    <link rel="stylesheet" href="~/dist/sweetalert2.min.css" />
+
+    <style>
+      body {
+        padding-top: 50px;
+      }
+
+      header.ui.container {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="ui fluid container fixed inverted menu">
+      <div class="ui container">
+        <a href="/" class="header item" title="Home">RicardoGaefke - WebJobs</a>
+        <a href="/how" class="item" title="Home">How it works?</a>
+      </div>
+    </header>
+
+    <div class="ui raised text container segment">
+      @RenderBody()
+    </div>
+
+    <footer class="ui fluid container bottom fixed inverted one item menu">
+      <div class="ui container">
+        <a href="https://github.com/RicardoGaefke/ricardogaefke-webjobs" class="item" title="ricardogaefke.com" target="_blank">
+          &copy; 2020 - Ricardo Gaefke
+        </a>
+      </div>
+    </footer>
+    <script src="~/dist/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/dist/semantic.min.js" asp-append-version="true"></script>
+    <script src="~/dist/index.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+  </body>
+</html>

@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "RicardoGaefke - WebJobs example";
+}
+
+<div>
+    <h1 class="ui divided header">
+      Send an XML file
+      <div class="sub header">Your file will be processed and sent by email as a JSON</div>
+      <div class="sub header">When not possible to process your file you'll receive an error message email</div>
+    </h1>
+
+    <div class="ui divider"></div>
+
+    <div class="ui form">
+      <div class="required field">
+        <label>Your Name</label>
+        <input type="text" name="Name" placeholder="Your name" title="Your name">
+      </div>
+
+      <div class="required field">
+        <label>Your Email</label>
+        <input type="email" name="Email" placeholder="Your email" title="Your email">
+      </div>
+
+      <div class="inline field">
+        <div class="ui checkbox">
+          <input type="checkbox" tabindex="0" class="hidden" name="Fail" title="Force fail">
+          <label>Force fail</label>
+        </div>
+      </div>
+
+      <input type="hidden" name="FileName" class="hidden">
+      <input type="hidden" name="FileSize" class="hidden">
+      <input type="hidden" name="FileType" class="hidden">
+      <input type="hidden" name="FileBase64" class="hidden">
+
+      <div class="field">
+        <div class="required six wide field">
+          <label>Pick a file</label>
+          <button class="ui labeled icon button btnupload">
+            <i class="upload icon"></i>
+            <span id="BtnLabel">Pick a file</span>
+          </button>
+          <input type="file" tabindex="0" name="file" id="file" title="Pick a file" accept="text/xml" class="transition hidden">
+        </div>
+      </div>
+
+      <div class="ui primary submit button" title="Submit">Submit</div>
+    </div>
+</div>
