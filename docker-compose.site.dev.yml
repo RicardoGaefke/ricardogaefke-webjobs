@@ -1,0 +1,23 @@
+version: '3'
+#networks
+networks:
+  my-network:
+    driver: bridge
+services:
+  #web_api
+  webjobs_site:
+    image: web_site_dev
+    container_name: webjobs_site
+    networks:
+      - my-network
+  #nginx
+  nginx:
+    image: webjobs_nginx_dev
+    container_name: webjobs-nginx-proxy
+    ports:
+      - "8000:8080"
+    networks:
+      - my-network
+  webjobs-xml:
+    image: webjobs_xml
+    container_name: webjobs_xml

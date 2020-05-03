@@ -5,9 +5,6 @@ import MyAxios from './MyAxios';
 import { IBasicReturn } from './IBasicReturn';
 
 export default (event: JQuery.TriggeredEvent<HTMLElement, any, any, any>, fields: IForm) => {
-  console.log('event', event);
-  console.log('fields', fields);
-
   MyAxios()
     .interceptors.request.use(
       (config) => {

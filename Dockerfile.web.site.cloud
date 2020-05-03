@@ -1,0 +1,27 @@
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine AS build
+
+RUN apk update && apk add --no-cache bash git openssh nodejs npm
+
+RUN git clone -b master https://github.com/RicardoGaefke/ricardogaefke-webjobs.git ./app
+
+WORKDIR /app/src/Web.Site
+
+RUN npm install
+
+RUN npm run build
+
+RUN dotnet publish -c Release ./Web.Site.csproj -r linux-musl-x64 -o ./publish
+
+FROM mcr.microsoft.com/dotnet/core/runtime:3.1-alpine as runtime
+
+RUN apk update && apk add --no-cache nodejs npm nodejs-npm
+
+RUN export PATH=$PATH:/usr/bin/node:/usr/share/doc/nodejs
+
+ENV ASPNETCORE_URLS=http://+:5000
+
+WORKDIR /app
+
+COPY --from=build /app/src/Web.Site/publish ./
+
+ENTRYPOINT ["./Web.Site"]
