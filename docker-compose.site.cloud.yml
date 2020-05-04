@@ -4,14 +4,17 @@ networks:
     driver: bridge
 services:
   web_api:
-    image: ricardogaefke/ricardogaefke-webjobs:web_site_cloud
+    image: ricardogaefke/ricardogaefke-webjobs:webjob_site
     container_name: web-api
     networks:
       - my-network
   nginx:
-    image: ricardogaefke/ricardogaefke-webjobs:mynginx_cloud
+    image: ricardogaefke/ricardogaefke-webjobs:webjob_nginx
     container_name: nginx-proxy
     ports:
       - "8080:8080"
     networks:
       - my-network
+  webjobs-xml:
+    image: ricardogaefke/ricardogaefke-webjobs:webjob_xml
+    container_name: webjobs_xml
