@@ -3,7 +3,7 @@ networks:
   my-network:
     driver: bridge
 services:
-  web_api:
+  web-api:
     image: ricardogaefke/ricardogaefke-webjobs:webjob_site
     container_name: web-api
     networks:
