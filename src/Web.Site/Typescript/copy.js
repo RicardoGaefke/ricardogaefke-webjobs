@@ -11,7 +11,7 @@ const jQueryFiles = [
 ];
 
 for (const file of jQueryFiles) {
-  ncp(`node_modules/jquery/dist/${file}`, `wwwroot/dist/${file}`, function (
+  ncp(`node_modules/jquery/dist/${file}`, `wwwroot/${file}`, function (
     err
   ) {
     if (err) {
@@ -27,7 +27,7 @@ const SemanticFiles = [
 ];
 
 for (const file of SemanticFiles) {
-  ncp(`node_modules/semantic-ui-css/${file}`, `wwwroot/dist/${file}`, function (
+  ncp(`node_modules/semantic-ui-css/${file}`, `wwwroot/${file}`, function (
     err
   ) {
     if (err) {
@@ -36,24 +36,11 @@ for (const file of SemanticFiles) {
     console.info(`${file} ✓`);
   });
 }
-
-// const AxiosFiles = ["axios.min.js", "axios.min.map"];
-
-// for (const file of AxiosFiles) {
-//   ncp(`node_modules/axios/dist/${file}`, `wwwroot/dist/${file}`, function (
-//     err
-//   ) {
-//     if (err) {
-//       return console.error(err);
-//     }
-//     console.info(`${file} ✓`);
-//   });
-// }
 
 const SweetAlertFiles = ["sweetalert2.min.css"];
 
 for (const file of SweetAlertFiles) {
-  ncp(`node_modules/sweetalert2/dist/${file}`, `wwwroot/dist/${file}`, function (
+  ncp(`node_modules/sweetalert2/dist/${file}`, `wwwroot/${file}`, function (
     err
   ) {
     if (err) {
@@ -63,7 +50,7 @@ for (const file of SweetAlertFiles) {
   });
 }
 
-ncp('node_modules/semantic-ui-css/themes', 'wwwroot/dist/themes', function (err) {
+ncp('node_modules/semantic-ui-css/themes', 'wwwroot/themes', function (err) {
   if (err) {
     return console.error(err);
   }
