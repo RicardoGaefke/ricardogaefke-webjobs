@@ -14,10 +14,6 @@ RUN dotnet publish -c Release ./Web.Site.csproj -r linux-musl-x64 -o ./publish
 
 FROM mcr.microsoft.com/dotnet/core/runtime:3.1-alpine as runtime
 
-RUN apk update && apk add --no-cache nodejs npm nodejs-npm
-
-RUN export PATH=$PATH:/usr/bin/node:/usr/share/doc/nodejs
-
 ENV ASPNETCORE_URLS=http://+:5000
 
 WORKDIR /app
