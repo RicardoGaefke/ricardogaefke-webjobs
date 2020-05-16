@@ -10,6 +10,14 @@
     "@types/jquery": "^3.3.36",
     "@types/node": "^13.13.4",
     "@types/semantic-ui": "^2.2.7",
+    "@typescript-eslint/eslint-plugin": "^2.33.0",
+    "@typescript-eslint/parser": "^2.33.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.0",
     "jquery": "^3.5.0",
     "ncp": "^2.0.0",
     "semantic-ui-css": "^2.4.1",
@@ -22,8 +30,8 @@
     "webpack-cli": "^3.3.11"
   },
   "scripts": {
-    "lint": "tslint --project tsconfig.json --config tslint.json",
-    "build": "node ./Typescript/copy && webpack --progress --color"
+    "build": "node ./Typescript/copy && webpack --progress --color",
+    "lint": "eslint **/*.*s*"
   },
   "keywords": [],
   "author": "Ricardo Gaefke",
