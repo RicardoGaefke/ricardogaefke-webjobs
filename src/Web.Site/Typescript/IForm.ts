@@ -3,8 +3,8 @@ export interface IForm {
   Email: string;
   Fail: boolean;
   File: string;
-  FileName: string,
-  FileSize: number,
-  FileType: string,
-  FileBase64: string,
-};
+  FileName: string;
+  FileSize: number;
+  FileType: string;
+  FileBase64: string;
+}

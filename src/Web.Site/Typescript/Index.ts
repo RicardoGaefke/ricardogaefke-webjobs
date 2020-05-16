@@ -6,7 +6,9 @@ import FormSubmit from './FormSubmit';
 $((): void => {
   $('.ui.checkbox').checkbox();
 
+  // eslint-disable-next-line no-unused-expressions
   UploadButtonClick;
+  // eslint-disable-next-line no-unused-expressions
   FileChange;
 
   $('.ui.form')
