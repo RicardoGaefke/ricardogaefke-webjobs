@@ -29,7 +29,7 @@
     "webpack-cli": "^3.3.11"
   },
   "scripts": {
-    "build": "node ./Typescript/copy && webpack --progress --color --mode development",
+    "build": "node ./Typescript/copy && webpack --progress --color --mode production",
     "lint": "eslint ./Typescript/*.*s",
     "lint-fix": "eslint ./Typescript/*.*s --fix"
   },
