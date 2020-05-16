@@ -17,6 +17,7 @@ module.exports = {
     "es6": true,
     "mocha": true,
     "browser": true,
+    "jquery": true,
   },
 
   settings: {
@@ -24,6 +25,9 @@ module.exports = {
       node: {
         extensions: ['.js', '.ts'],
       }
+    },
+    'react': {
+      'version': '999.999.999'
     }
   },
   
@@ -47,7 +51,9 @@ module.exports = {
         '@typescript-eslint/interface-name-prefix': 'off',
         '@typescript-eslint/no-explicit-any': 'off',
         'import/no-unresolved': 'off',
-        'import/extensions': [0, '.js', '.json', '.ts']
+        'import/extensions': [0, '.js', '.json', '.ts'],
+        'max-len': [2, 150, 2],
+        'no-restricted-syntax': [0],
       })
     }
   ],
