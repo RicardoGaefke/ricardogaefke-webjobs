@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -56,6 +57,8 @@ namespace RicardoGaefke.Web.Site
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
+      var cachePeriod = env.IsDevelopment() ? "600" : "31557600";
+      
       if (env.IsDevelopment())
       {
           app.UseDeveloperExceptionPage();
@@ -71,7 +74,14 @@ namespace RicardoGaefke.Web.Site
       app.UseHttpsRedirection();
       app.UseRouting();
       app.UseCors();
-      app.UseStaticFiles();
+
+      app.UseStaticFiles(new StaticFileOptions
+      {
+          OnPrepareResponse = ctx =>
+          {
+              ctx.Context.Response.Headers.Append("Cache-Control", $"public, max-age={cachePeriod}");
+          }
+      });
 
       // nginx config
       app.UseForwardedHeaders(new ForwardedHeadersOptions
