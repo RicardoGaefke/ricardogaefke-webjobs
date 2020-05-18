@@ -60,6 +60,7 @@ namespace RicardoGaefke.DI
             {
               builder
                 .WithOrigins(
+                  "https://localhost:5001",
                   "https://localhost:5050",
                   "https://localhost:5055",
                   "https://localhost:5060",

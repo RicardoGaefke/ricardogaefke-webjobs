@@ -14,7 +14,7 @@ export default (event: JQuery.TriggeredEvent<HTMLElement, any, any, any>, fields
       (error) => Promise.reject(error),
     );
   MyAxios()
-    .post<IBasicReturn>('SendXML')
+    .post<IBasicReturn>('SendXML', fields)
     .then((response: AxiosResponse): void => {
       if (response.data.Success) {
         Swal.fire('Success', 'Your file was sent!', 'success');
