@@ -14,6 +14,8 @@ using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Serialization;
 using RicardoGaefke.DI;
 using RicardoGaefke.Domain;
+using RicardoGaefke.Data;
+using RicardoGaefke.Storage;
 
 namespace RicardoGaefke.Web.Site
 {
@@ -31,6 +33,9 @@ namespace RicardoGaefke.Web.Site
     public void ConfigureServices(IServiceCollection services)
     {
       services.Configure<Secrets.ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
+
+      services.AddSingleton<IMyFiles, MyFiles>();
+      services.AddSingleton<IBlob, Blob>();
 
       Bootstrap.DataProtection(services, Configuration);
 

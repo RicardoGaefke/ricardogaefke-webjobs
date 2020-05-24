@@ -24,9 +24,9 @@ namespace RicardoGaefke.Storage
       CloudBlobContainer container = cloudBlobClient.GetContainerReference("webjob-xml");
       CloudBlockBlob blob = container.GetBlockBlobReference(data.Name);
 
-      byte[] img = Convert.FromBase64String(data.Src.Substring(data.Src.IndexOf(",") + 1));
+      byte[] file = Convert.FromBase64String(data.Data.Substring(data.Data.IndexOf(",") + 1));
       blob.Properties.ContentType = data.Mime;
-      blob.UploadFromByteArray(img, 0, img.Length);
+      blob.UploadFromByteArray(file, 0, file.Length);
     }
 
     public BlobDownloadInfo Download(string file)
