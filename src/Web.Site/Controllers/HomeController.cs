@@ -17,8 +17,7 @@ namespace RicardoGaefke.Web.Site
         {
             _logger = logger;
         }
-        
-        // Route to VIEW
+
         public IActionResult Index()
         {
             return View();
