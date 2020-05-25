@@ -17,13 +17,21 @@ namespace RicardoGaefke.Web.Site
         {
             _logger = logger;
         }
-
+        
+        // Route to VIEW
         public IActionResult Index()
         {
             return View();
         }
 
+        // Route to PRIVACY
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        // Route to HOW
+        public IActionResult How()
         {
             return View();
         }
