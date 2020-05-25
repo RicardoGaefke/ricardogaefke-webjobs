@@ -20,18 +20,9 @@ namespace RicardoGaefke.WebJob.XML
       _connStr = ConnectionStrings;
     }
 
-    public void ProcessXMLFile(
-      [QueueTrigger("xml")] string message,
-      [Blob("xml/{queueTrigger}", FileAccess.Read)] Stream myBlob,
-      ILogger logger
-    )
-    {
-      logger.LogInformation($"Blob name:{message} \n Size: {myBlob.Length} bytes");
-    }
-
-    public void ProcessQueueMessage
+    public void ProcessQueueMessageWebJobXml
     (
-      [QueueTrigger("xml")]
+      [QueueTrigger("webjob-xml")]
       string message,
       ILogger logger
     )

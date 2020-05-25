@@ -22,6 +22,7 @@ namespace RicardoGaefke.Storage
       CloudStorageAccount cloudStorageAccount = CloudStorageAccount.Parse(_connStr.Value.Storage);
       CloudBlobClient cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
       CloudBlobContainer container = cloudBlobClient.GetContainerReference("webjob-xml");
+      container.CreateIfNotExists();
       CloudBlockBlob blob = container.GetBlockBlobReference(data.Name);
 
       byte[] file = Convert.FromBase64String(data.Data.Substring(data.Data.IndexOf(",") + 1));

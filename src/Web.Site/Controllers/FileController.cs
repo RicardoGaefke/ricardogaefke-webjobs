@@ -13,12 +13,14 @@ namespace RicardoGaefke.Web.Site
     private readonly ILogger<HomeController> _logger;
     private readonly IMyFiles _myFiles;
     private readonly IBlob _blob;
+    private readonly IQueue _queue;
 
-    public FileController(ILogger<HomeController> logger, IMyFiles MyFiles, IBlob Blob)
+    public FileController(ILogger<HomeController> logger, IMyFiles MyFiles, IBlob Blob, IQueue Queue)
     {
         _logger = logger;
         _myFiles = MyFiles;
         _blob = Blob;
+        _queue = Queue;
     }
 
     [HttpPost("SendXML")]
@@ -36,6 +38,8 @@ namespace RicardoGaefke.Web.Site
 
         _blob.SaveBase64(myFile);
 
+        _queue.SaveMessage("webjob-xml", inserted.ID.ToString());
+
         _return.Success = true;
       }
       catch (DomainException ex)
@@ -48,6 +52,7 @@ namespace RicardoGaefke.Web.Site
       {
         _return.Success = false;
         _return.Message = ex.Message;
+        _return.Details = ex.StackTrace;
       }
 
       return _return;
