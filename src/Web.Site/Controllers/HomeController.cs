@@ -24,12 +24,6 @@ namespace RicardoGaefke.Web.Site
             return View();
         }
 
-        // Route to PRIVACY
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
         // Route to HOW
         public IActionResult How()
         {
