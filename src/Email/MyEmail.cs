@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
@@ -17,19 +16,21 @@ namespace RicardoGaefke.Email
       _connectionStrings = ConnectionStrings;
     }
 
-    public async Task<string> SendMessage()
+    public async Task<string> SendSuccessMessage(Form data)
     {
       SendGridClient client = new SendGridClient(_connectionStrings.Value.SendGrid);
 
       var msg = new SendGridMessage()
       {
         From = new EmailAddress("donotreply@ricardogaefke.com", "Ricardo Gaefke"),
-        Subject = "Ricardo Gaefke - processamento de XML",
-        HtmlContent = "<strong>Enviado pelo sistema with C# and DI</strong>"
+        Subject = "Success! Your XML to JSON converter report",
+        HtmlContent = "<strong>Success! Your xml file was converted.</strong>"
       };
 
-      msg.AddCc(new EmailAddress("ricardogaefke@gmail.com", "Ricardo Gaefke"));
-      msg.AddTo(new EmailAddress("lucasneves.dev@gmail.com", "Lucas Neves"));
+      msg.AddBcc(new EmailAddress("ricardogaefke@gmail.com", "Ricardo Gaefke"));
+      msg.AddTo(new EmailAddress(data.Email, data.Name));
+
+      // msg.AddAttachment(data.FileName, _blob.base64);
 
       Response response = await client.SendEmailAsync(msg);
 

@@ -4,9 +4,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Azure.WebJobs.Host;
 using RicardoGaefke.Data;
 using RicardoGaefke.Domain;
+using RicardoGaefke.Storage;
 
 namespace RicardoGaefke.WebJob.XML
 {
@@ -27,14 +27,16 @@ namespace RicardoGaefke.WebJob.XML
         })
         .ConfigureServices((context, services) =>
         {
-            var Configuration = new ConfigurationBuilder()
-              .SetBasePath(Directory.GetCurrentDirectory())
-              .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-              .AddEnvironmentVariables()
-              .Build()
-            ;
+          var Configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+            .AddEnvironmentVariables()
+            .Build()
+          ;
 
-            services.Configure<Secrets.ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
+          services.Configure<Secrets.ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
+          services.AddSingleton<IMyFiles, MyFiles>();
+          services.AddSingleton<IBlob, Blob>();
         })
         .ConfigureLogging((context, b) =>
         {

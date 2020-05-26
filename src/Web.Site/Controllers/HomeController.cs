@@ -23,7 +23,6 @@ namespace RicardoGaefke.Web.Site
             return View();
         }
 
-        // Route to HOW
         public IActionResult How()
         {
             return View();
