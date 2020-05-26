@@ -36,6 +36,7 @@ namespace RicardoGaefke.Web.Site
 
       services.AddSingleton<IMyFiles, MyFiles>();
       services.AddSingleton<IBlob, Blob>();
+      services.AddSingleton<IQueue, Queue>();
 
       Bootstrap.DataProtection(services, Configuration);
 

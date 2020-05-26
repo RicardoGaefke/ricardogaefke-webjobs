@@ -31,6 +31,15 @@ namespace RicardoGaefke.Domain
       this.Name = name;
     }
 
+    public Image(string name, string src)
+    {
+      DomainException.When(!string.IsNullOrEmpty(name), "Data is required!");
+      DomainException.When(!string.IsNullOrEmpty(src), "SRC is required!");
+
+      this.Name = name;
+      this.Src = src;
+    }
+
     public Image(string data, string mime, string user, string alt_PT, string alt_ENG)
     {
       DomainException.When(!string.IsNullOrEmpty(data), "Data is required!");

@@ -9,7 +9,7 @@ COPY src/. ./src/
 
 WORKDIR /app/src/WebJob.XML
 
-RUN dotnet publish -c Release ./WebJob.XML.csproj -r linux-musl-x64 -o out
+RUN dotnet publish -c Debug ./WebJob.XML.csproj -r linux-musl-x64 -o out
 
 FROM mcr.microsoft.com/dotnet/core/runtime-deps:3.1-alpine as runtime
 

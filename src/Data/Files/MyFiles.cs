@@ -1,3 +1,5 @@
+using System.Runtime.InteropServices.ComTypes;
+using System;
 using Microsoft.Extensions.Options;
 using System.Data;
 using System.Data.SqlClient;
@@ -18,7 +20,7 @@ namespace RicardoGaefke.Data
     {
       int id = 0;
       string guid = string.Empty;
-      
+
       using (SqlConnection Con = new SqlConnection(_connStr.Value.SqlServer))
       {
         using (SqlCommand Cmd = new SqlCommand())
@@ -48,6 +50,62 @@ namespace RicardoGaefke.Data
       }
 
       return new Inserted(id, guid);
+    }
+
+    public Inserted GetFileInfo(int id)
+    {
+      string guid = string.Empty;
+      string name = string.Empty;
+      string email = string.Empty;
+      bool fail = false;
+
+      using (SqlConnection Con = new SqlConnection(_connStr.Value.SqlServer))
+      {
+        using (SqlCommand Cmd = new SqlCommand())
+        {
+          Cmd.CommandType = CommandType.StoredProcedure;
+          Cmd.Connection = Con;
+          Cmd.CommandText = "[sp_FILE_INFO]";
+
+          Cmd.Parameters.AddWithValue("@ID", Convert.ToInt32(id));
+
+          Con.Open();
+
+          using (SqlDataReader MyDR = Cmd.ExecuteReader())
+          {
+            MyDR.Read();
+
+            guid = MyDR.GetGuid(0).ToString();
+            name = MyDR.GetString(1);
+            email = MyDR.GetString(2);
+            fail = MyDR.GetBoolean(3);
+          }
+        }
+      }
+
+      return new Inserted(id, guid, name, email, fail);
+    }
+
+    public void UpdateFileInfo(Inserted data)
+    {
+      using (SqlConnection Con = new SqlConnection(_connStr.Value.SqlServer))
+      {
+        using (SqlCommand Cmd = new SqlCommand())
+        {
+          Cmd.CommandType = CommandType.StoredProcedure;
+          Cmd.Connection = Con;
+          Cmd.CommandText = "[sp_FILE_UPDATE]";
+
+          Cmd.Parameters.AddWithValue("@ID", data.ID);
+          Cmd.Parameters.AddWithValue("@SUCCESS", data.Success);
+          Cmd.Parameters.AddWithValue("@DEQUEUE", data.Dequeue);
+          Cmd.Parameters.AddWithValue("@MESSAGE", data.Message);
+
+          Con.Open();
+
+          Cmd.ExecuteNonQuery();
+        }
+      }
     }
   }
 }

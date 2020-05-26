@@ -1,0 +1,92 @@
+@{
+  ViewData["Title"] = "RicardoGaefke - WebJobs example";
+}
+
+<h1 class="ui dividing header">
+  How it Works
+</h1>
+
+<p class="ui sub header">
+  This is a simple example of async integration using Azure WebJobs on an Azure Linux Docker Compose WebApp.
+</p>
+
+<p>&nbsp;</p>
+
+<p>
+  It has a simple form to send an XML file with your name and email. Inserted data is sent to server and you'll always
+  receive an answer.
+  If everything runs fine, you'll receive an email with your XML converted to a JSON file.
+  Otherwise, you'll receive an error message.
+</p>
+<p>
+  <a title="Azure WebJobs" target="_blank" href="https://docs.microsoft.com/pt-br/azure/app-service/webjobs-create">Azure WebJobs</a>
+  are background services that are perfect for services integration and/or long time tasks (like PDF generation and external API calls).
+</p>
+<p>
+  WebJobs run connected to Azure Storage Queues and one of the best resources (in my opinion) is the ability to use
+  a poison queue. When a run fails after X times (default is five), the message is sent to a <span class="ui label">-poison</span> queue.
+  So if for any reason your message falls in an error, you can have a second WebJob connected to
+  the <span class="ui label">-poison</span> queue to handle the situation.
+</p>
+
+<p>
+  Tech summary:
+</p>
+<p>
+  <span class="ui horizontal label">ASP.NET Core</span>
+  <span class="ui horizontal label">Azure</span>
+  <span class="ui horizontal label">Azure Pipelines</span>
+  <span class="ui horizontal label">Azure SQL</span>
+  <span class="ui horizontal label">Azure Storage</span>
+  <span class="ui horizontal label">Azure WebApp</span>
+  <span class="ui horizontal label">Azure WebJobs</span>
+  <span class="ui horizontal label">C#</span>
+  <span class="ui horizontal label">Docker</span>
+  <span class="ui horizontal label">GitHub</span>
+  <span class="ui horizontal label">JQuery</span>
+  <span class="ui horizontal label">Linux</span>
+  <span class="ui horizontal label">Nginx</span>
+  <span class="ui horizontal label">Semantic UI</span>
+  <span class="ui horizontal label">TypeScript</span>
+</p>
+
+<div class="ui divider"></div>
+
+<h3 class="ui header">GitHub integration</h3>
+<p>
+  The repo of this example can be found at
+  <a title="ricardogaefke-webjobs repo" target="_blank" href="https://github.com/RicardoGaefke/ricardogaefke-webjobs">GitHub/RicardoGaefke/ricardogaefke-webjobs</a>.
+</p>
+
+<div class="ui divider"></div>
+
+<h3 class="ui header">Azure Pipelines</h3>
+<p>
+  This application is automatically built, tested and deployed by Azure Pipelines. Each git push to <span class="ui label">master</span> or
+  to a PR is built and tested by Azure Pipelines. In case of <span class="ui label">master</span> if the build is ok the Release takes place and
+  updates the app using Docker integration.
+</p>
+<p>
+  This is the public <a title="Azure Pipeline for ricardogaefke-webjobs" target="_blank" href="https://dev.azure.com/ricardogaefke/ricardogaefke-webjobs">Pipeline</a>.
+</p>
+
+<div class="ui divider"></div>
+
+<h3 class="ui header">Docker registry</h3>
+<p>
+  I am using Docker registry to create and publish the containers of this app using the Release Pipeline. There are two Docker repos being used here:
+  <div class="ui ordered list">
+    <div class="item">
+      <div class="header">
+        <a title="docker ricardogaefke-webjobs" target="_blank" href="https://hub.docker.com/r/ricardogaefke/ricardogaefke-webjobs">ricardogaefke-webjobs</a>
+      </div>
+      This is used to save the containers used by app (webjob_site, webjob_nginx, webjob_xml, webjob_xml_poison).
+    </div>
+    <div class="item">
+      <div class="header">
+        <a title="docker ricardogaefke-webjobs" target="_blank" href="https://hub.docker.com/r/ricardogaefke/ricardogaefke-webjobs-deploy">ricardogaefke-webjobs-deploy</a>
+      </div>
+      This repo is used just to trigger the Azure WebHook and update the WebApp after publishing all containers to previous Docker repo.
+    </div>
+  </div>
+</p>

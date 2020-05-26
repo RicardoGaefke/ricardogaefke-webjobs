@@ -5,14 +5,8 @@ import MyAxios from './MyAxios';
 import { IBasicReturn } from './IBasicReturn';
 
 export default (event: JQuery.TriggeredEvent<HTMLElement, any, any, any>, fields: IForm): void => {
-  MyAxios()
-    .interceptors.request.use(
-      (config) => {
-        $('.ui.form').addClass('loading');
-        return config;
-      },
-      (error) => Promise.reject(error),
-    );
+  fields.Fail = $('.ui.checkbox').checkbox('is checked');
+
   MyAxios()
     .post<IBasicReturn>('SendXML', fields)
     .then((response: AxiosResponse): void => {
@@ -23,5 +17,6 @@ export default (event: JQuery.TriggeredEvent<HTMLElement, any, any, any>, fields
       }
       $('.ui.form').removeClass('loading');
     })
-    .catch((err) => Swal.fire('Oops...', 'There was a problem!', 'error'));
+    .catch((err) => Swal.fire('Oops...', 'There was a problem!', 'error'))
+    .finally(() => $('.ui.form').removeClass('loading'));
 };

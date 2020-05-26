@@ -6,5 +6,13 @@ export default (): AxiosInstance => {
     withCredentials: true,
   });
 
+  myAxios.interceptors.request.use(
+    (config) => {
+      $('.ui.form').addClass('loading');
+      console.log('beforeSend');
+      return config;
+    }
+  );
+
   return myAxios;
 };

@@ -23,7 +23,7 @@ namespace RicardoGaefke.Web.Site
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult How()
         {
             return View();
         }
