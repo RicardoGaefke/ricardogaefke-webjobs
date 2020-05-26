@@ -1,11 +1,11 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RicardoGaefke.Data;
 using RicardoGaefke.Domain;
+using RicardoGaefke.Email;
 using RicardoGaefke.Storage;
 
 namespace RicardoGaefke.WebJob.XML
@@ -37,6 +37,7 @@ namespace RicardoGaefke.WebJob.XML
           services.Configure<Secrets.ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
           services.AddSingleton<IMyFiles, MyFiles>();
           services.AddSingleton<IBlob, Blob>();
+          services.AddSingleton<IMyEmail, MyEmail>();
         })
         .ConfigureLogging((context, b) =>
         {

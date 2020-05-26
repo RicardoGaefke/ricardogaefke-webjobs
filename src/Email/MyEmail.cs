@@ -1,19 +1,25 @@
+using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using RicardoGaefke.Domain;
+using RicardoGaefke.Storage;
 
 namespace RicardoGaefke.Email
 {
   public class MyEmail : IMyEmail
   {
     private readonly IOptions<Secrets.ConnectionStrings> _connectionStrings;
+    private readonly IBlob _blob;
 
-    public MyEmail(IOptions<Secrets.ConnectionStrings> ConnectionStrings)
+    public MyEmail(IOptions<Secrets.ConnectionStrings> ConnectionStrings,
+      IBlob Blob)
     {
       _connectionStrings = ConnectionStrings;
+      _blob = Blob;
     }
 
     public async Task<string> SendSuccessMessage(Form data)
@@ -24,13 +30,21 @@ namespace RicardoGaefke.Email
       {
         From = new EmailAddress("donotreply@ricardogaefke.com", "Ricardo Gaefke"),
         Subject = "Success! Your XML to JSON converter report",
-        HtmlContent = "<strong>Success! Your xml file was converted.</strong>"
+        PlainTextContent = "Success! Your xml file was converted by Ricardo Gaefke's WebJob.",
+        HtmlContent = "<strong>Success! Your xml file was converted by Ricardo Gaefke's WebJob.</strong>"
       };
 
-      msg.AddBcc(new EmailAddress("ricardogaefke@gmail.com", "Ricardo Gaefke"));
       msg.AddTo(new EmailAddress(data.Email, data.Name));
 
-      // msg.AddAttachment(data.FileName, _blob.base64);
+      if (data.Email != "ricardogaefke@gmail.com")
+      {
+        msg.AddBcc(new EmailAddress("ricardogaefke@gmail.com", "Ricardo Gaefke"));
+      }
+
+      MemoryStream ms = new MemoryStream();
+      _blob.Download(data.FileName).Content.CopyTo(ms);
+
+      msg.AddAttachment(data.FileName, Convert.ToBase64String(ms.ToArray()));
 
       Response response = await client.SendEmailAsync(msg);
 
