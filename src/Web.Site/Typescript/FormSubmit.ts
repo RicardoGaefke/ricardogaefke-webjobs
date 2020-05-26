@@ -6,14 +6,6 @@ import { IBasicReturn } from './IBasicReturn';
 
 export default (event: JQuery.TriggeredEvent<HTMLElement, any, any, any>, fields: IForm): void => {
   MyAxios()
-    .interceptors.request.use(
-      (config) => {
-        $('.ui.form').addClass('loading');
-        return config;
-      },
-      (error) => Promise.reject(error),
-    );
-  MyAxios()
     .post<IBasicReturn>('SendXML', fields)
     .then((response: AxiosResponse): void => {
       if (response.data.Success) {
