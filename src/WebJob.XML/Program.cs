@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -12,9 +13,14 @@ namespace RicardoGaefke.WebJob.XML
 {
   class Program
   {
-    static void Main(string[] args)
+    static async Task Main(string[] args)
     {
-      CreateHostBuilder(args).Build().Run();
+      var host = CreateHostBuilder(args).Build();
+
+      using (host)
+      {
+        await host.RunAsync();
+      }
     }
 
     public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -37,6 +43,7 @@ namespace RicardoGaefke.WebJob.XML
           services.Configure<Secrets.ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
           services.AddSingleton<IMyFiles, MyFiles>();
           services.AddSingleton<IBlob, Blob>();
+          services.AddSingleton<IQueue, Queue>();
           services.AddSingleton<IMyEmail, MyEmail>();
         })
         .ConfigureLogging((context, b) =>
@@ -48,6 +55,7 @@ namespace RicardoGaefke.WebJob.XML
             b.AddAzureStorageCoreServices();
             b.AddAzureStorage();
         })
+        .UseConsoleLifetime()
       ;
   }
 }
