@@ -13,6 +13,7 @@
     <PackageReference Include="Microsoft.Azure.Storage.Blob" Version="11.1.5" />
     <PackageReference Include="Microsoft.Azure.Storage.Queue" Version="11.1.5" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.0" />
+    <PackageReference Include="System.Runtime.Handles" Version="4.3.0" />
   </ItemGroup>
 
 </Project>
