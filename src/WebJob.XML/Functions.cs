@@ -58,7 +58,9 @@ namespace RicardoGaefke.WebJob.XML
 
       string sgID = await _myEmail.SendSuccessMessage(mailMsg);
 
-      logger.LogDebug(sgID);
+      Inserted update = new Inserted(Convert.ToInt32(message), true, DequeueCount, sgID);
+
+      _myFiles.UpdateFileInfo(update);
     }
   }
 }

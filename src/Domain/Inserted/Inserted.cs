@@ -6,8 +6,22 @@ namespace RicardoGaefke.Domain
     public int ID {get;set;}
     public string GUID { get; set; }
     public string Name { get; set; }
-        public string Email { get; set; }
-        public bool Fail { get; set; }
+    public string Email { get; set; }
+    public bool Fail { get; set; }
+    public bool Finished { get; set; }
+    public bool Success { get; set; }
+    public int Dequeue { get; set; }
+    public string Message { get; set; }
+
+    public Inserted(int id, bool success, int dequeue, string message)
+    {
+      DomainException.When(!string.IsNullOrEmpty(message), "SendGrid message ID is required!");
+
+      this.ID = id;
+      this.Success = success;
+      this.Dequeue = dequeue;
+      this.Message = message;
+    }
 
     public Inserted(int id, string guid)
     {

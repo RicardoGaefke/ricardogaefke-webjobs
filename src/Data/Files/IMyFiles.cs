@@ -6,5 +6,6 @@ namespace RicardoGaefke.Data
   {
     Inserted Insert(Form data);
     Inserted GetFileInfo(int id);
+    void UpdateFileInfo(Inserted data);
   }
 }

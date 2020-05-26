@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.ComTypes;
 using System;
 using Microsoft.Extensions.Options;
 using System.Data;
@@ -19,7 +20,7 @@ namespace RicardoGaefke.Data
     {
       int id = 0;
       string guid = string.Empty;
-      
+
       using (SqlConnection Con = new SqlConnection(_connStr.Value.SqlServer))
       {
         using (SqlCommand Cmd = new SqlCommand())
@@ -83,6 +84,28 @@ namespace RicardoGaefke.Data
       }
 
       return new Inserted(id, guid, name, email, fail);
+    }
+
+    public void UpdateFileInfo(Inserted data)
+    {
+      using (SqlConnection Con = new SqlConnection(_connStr.Value.SqlServer))
+      {
+        using (SqlCommand Cmd = new SqlCommand())
+        {
+          Cmd.CommandType = CommandType.StoredProcedure;
+          Cmd.Connection = Con;
+          Cmd.CommandText = "[sp_FILE_UPDATE]";
+
+          Cmd.Parameters.AddWithValue("@ID", data.ID);
+          Cmd.Parameters.AddWithValue("@SUCCESS", data.Success);
+          Cmd.Parameters.AddWithValue("@DEQUEUE", data.Dequeue);
+          Cmd.Parameters.AddWithValue("@MESSAGE", data.Message);
+
+          Con.Open();
+
+          Cmd.ExecuteNonQuery();
+        }
+      }
     }
   }
 }
