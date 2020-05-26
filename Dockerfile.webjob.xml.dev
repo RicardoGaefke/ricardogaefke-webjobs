@@ -19,8 +19,8 @@ COPY --from=build /app/src/WebJob.XML/out ./
 
 ENTRYPOINT ["./WebJob.XML"]
 
-# docker build -f .\Dockerfile.webjob.teste.cloud -t webjob_teste_cloud .
-# docker create webjob_teste_cloud
-# docker run -it --rm webjob_teste_cloud
+# docker build -f .\Dockerfile.webjob.xml.dev -t webjob_xml_dev .
+# docker create webjob_xml_dev
+# docker run -it --rm webjob_xml_dev
 #
 # docker rmi $(docker images -a -q)

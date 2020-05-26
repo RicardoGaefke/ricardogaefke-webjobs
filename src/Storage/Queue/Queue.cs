@@ -13,7 +13,7 @@ namespace RicardoGaefke.Storage
     {
       _connStr = ConnectionStrings;
     }
-    
+
     public void SaveMessage(string queue, string message)
     {
       CloudStorageAccount cloudStorageAccount = CloudStorageAccount.Parse(_connStr.Value.Storage);
