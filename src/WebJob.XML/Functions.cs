@@ -39,9 +39,12 @@ namespace RicardoGaefke.WebJob.XML
       ILogger logger
     )
     {
-      logger.LogInformation(DequeueCount.ToString());
-
       Inserted myFiles = _myFiles.GetFileInfo(Convert.ToInt32(message));
+
+      if (myFiles.Fail)
+      {
+        throw new Exception("User choosed to fail");
+      }
 
       string fileName = $"{myFiles.GUID}.xml", fileNameJson = $"{myFiles.GUID}.json";
 
@@ -59,6 +62,25 @@ namespace RicardoGaefke.WebJob.XML
       string sgID = await _myEmail.SendSuccessMessage(mailMsg);
 
       Inserted update = new Inserted(Convert.ToInt32(message), true, DequeueCount, sgID);
+
+      _myFiles.UpdateFileInfo(update);
+    }
+
+    public async void ProcessQueueMessageWebJobXmlPoison
+    (
+      [QueueTrigger("webjob-xml-poison")]
+      string message,
+      int DequeueCount,
+      ILogger logger
+    )
+    {
+      Inserted myFiles = _myFiles.GetFileInfo(Convert.ToInt32(message));
+
+      Form mailMsg = new Form(myFiles.Name, myFiles.Email);
+
+      string sgID = await _myEmail.SendErrorMessage(mailMsg);
+
+      Inserted update = new Inserted(Convert.ToInt32(message), false, DequeueCount, sgID);
 
       _myFiles.UpdateFileInfo(update);
     }
