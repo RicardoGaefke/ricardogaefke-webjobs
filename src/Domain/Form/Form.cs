@@ -11,6 +11,9 @@ namespace RicardoGaefke.Domain
     public string FileType { get; set; }
     public string FileBase64 { get; set; }
 
+    public Form()
+    {}
+
     public Form(string name, string email, string fileName)
     {
       DomainException.When(!string.IsNullOrEmpty(name), "Name is required!");
