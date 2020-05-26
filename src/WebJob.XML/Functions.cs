@@ -49,6 +49,7 @@ namespace RicardoGaefke.WebJob.XML
         if (myFiles.Fail)
         {
           _queue.SaveMessage("webjob-xml-poison", message);
+          return;
         }
 
         string fileName = $"{myFiles.GUID}.xml", fileNameJson = $"{myFiles.GUID}.json";
