@@ -16,7 +16,7 @@ WebJobs run connected to Azure Storage Queues and one of the best resources (in 
 
 ## GitHub Integration
 
-The repo of this example can be found at [GitHub/RicardoGaefke/ricardogaefke-webjobs](GitHub/RicardoGaefke/ricardogaefke-webjobs).
+The repo of this example can be found at [GitHub/RicardoGaefke/ricardogaefke-webjobs](https://github.com/RicardoGaefke/ricardogaefke-webjobs).
 
 ## Azure Pipelines
 
