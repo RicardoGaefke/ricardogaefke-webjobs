@@ -6,7 +6,9 @@
   "dependencies": {
     "axios": "^0.19.2",
     "eslint-plugin-react": "^7.20.0",
-    "eslint-plugin-react-hooks": "^4.0.2"
+    "eslint-plugin-react-hooks": "^4.0.2",
+    "ncp": "^2.0.0",
+    "sweetalert2": "^9.10.12"
   },
   "devDependencies": {
     "@types/jquery": "^3.3.36",
@@ -20,10 +22,8 @@
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "jquery": "^3.5.0",
-    "ncp": "^2.0.0",
     "react-docgen-typescript-loader": "^3.7.2",
     "semantic-ui-css": "^2.4.1",
-    "sweetalert2": "^9.10.12",
     "typescript": "^3.8.3",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11"

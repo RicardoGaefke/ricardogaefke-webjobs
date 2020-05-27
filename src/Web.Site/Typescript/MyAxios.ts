@@ -9,8 +9,6 @@ export default (): AxiosInstance => {
   myAxios.interceptors.request.use(
     (config) => {
       $('.ui.form').addClass('loading');
-      // eslint-disable-next-line no-console
-      console.log('beforeSend');
       return config;
     },
   );
