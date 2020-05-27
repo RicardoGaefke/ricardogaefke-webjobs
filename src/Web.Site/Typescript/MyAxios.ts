@@ -9,9 +9,8 @@ export default (): AxiosInstance => {
   myAxios.interceptors.request.use(
     (config) => {
       $('.ui.form').addClass('loading');
-      console.log('beforeSend');
       return config;
-    }
+    },
   );
 
   return myAxios;
