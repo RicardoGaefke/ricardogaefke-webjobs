@@ -5,6 +5,7 @@ import MyAxios from './MyAxios';
 import { IBasicReturn } from './IBasicReturn';
 
 export default (event: JQuery.TriggeredEvent<HTMLElement, any, any, any>, fields: IForm): void => {
+  // eslint-disable-next-line no-param-reassign
   fields.Fail = $('.ui.checkbox').checkbox('is checked');
 
   MyAxios()
