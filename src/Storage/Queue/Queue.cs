@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Azure.Storage;
 using Microsoft.Azure.Storage.Queue;
 using Microsoft.Extensions.Options;
@@ -14,12 +15,18 @@ namespace RicardoGaefke.Storage
       _connStr = ConnectionStrings;
     }
 
-    public void SaveMessage(string queue, string message)
+    private CloudQueue MyQueue(string queue)
     {
       CloudStorageAccount cloudStorageAccount = CloudStorageAccount.Parse(_connStr.Value.Storage);
       CloudQueueClient queueClient = cloudStorageAccount.CreateCloudQueueClient();
       CloudQueue myQueue = queueClient.GetQueueReference(queue);
       myQueue.CreateIfNotExists();
+      return myQueue;
+    }
+
+    public void SaveMessage(string queue, string message)
+    {
+      CloudQueue myQueue = MyQueue(queue);
       myQueue.AddMessage(new CloudQueueMessage(message));
     }
   }

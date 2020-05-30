@@ -38,6 +38,7 @@ namespace RicardoGaefke.WebJob.XML
     (
       [QueueTrigger("webjob-xml")]
       string message,
+      string id,
       int DequeueCount,
       ILogger logger
     )

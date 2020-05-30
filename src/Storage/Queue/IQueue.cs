@@ -1,5 +1,4 @@
-using RicardoGaefke.Domain;
-using Azure.Storage.Blobs.Models;
+using Microsoft.Azure.Storage.Queue;
 
 namespace RicardoGaefke.Storage
 {

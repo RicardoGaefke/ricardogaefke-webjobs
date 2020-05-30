@@ -26,6 +26,8 @@ This is the public [Pipeline](https://dev.azure.com/ricardogaefke/ricardogaefke-
 
 ## Docker Registry
 
+The containers of this app can be found at [docker/ricardogaefke/ricardogaefke-webjobs](https://hub.docker.com/r/ricardogaefke/ricardogaefke-webjobs).
+
 I am using Docker registry to create and publish the containers of this app using the Release Pipeline. There are two Docker repos being used here:
 
 * 1 - [ricardogaefke-webjobs](https://hub.docker.com/r/ricardogaefke/ricardogaefke-webjobs)
