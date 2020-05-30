@@ -16,7 +16,7 @@ WebJobs run connected to Azure Storage Queues and one of the best resources (in 
 
 ## GitHub Integration
 
-The repo of this example can be found at [GitHub/RicardoGaefke/ricardogaefke-webjobs](https://github.com/RicardoGaefke/ricardogaefke-webjobs).
+The content of this example can be found at [https://webjobs.ricardogaefke.com/](https://webjobs.ricardogaefke.com/).
 
 ## Azure Pipelines
 
@@ -54,7 +54,7 @@ This repo is used just to trigger the Azure WebHook and update the WebApp after 
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://github.com/RicardoGaefke/ricardogaefke-webjobs/blob/master/CONTRIBUITING) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](https://github.com/RicardoGaefke/ricardogaefke-webjobs/blob/master/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Authors
 
