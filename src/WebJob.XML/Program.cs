@@ -15,21 +15,22 @@ namespace RicardoGaefke.WebJob.XML
   {
     static async Task Main(string[] args)
     {
-      var host = CreateHostBuilder(args).Build();
-
-      using (host)
-      {
-        await host.RunAsync();
-      }
-    }
-
-    public static IHostBuilder CreateHostBuilder(string[] args) =>
-      Host.CreateDefaultBuilder(args)
-        .ConfigureHostConfiguration(configHost =>
+      var builder = new HostBuilder()
+        .ConfigureWebJobs(b =>
         {
-            configHost.SetBasePath(Directory.GetCurrentDirectory());
-            configHost.AddJsonFile("appsettings.json", optional: true);
-            configHost.AddCommandLine(args);
+          b
+            .AddAzureStorageCoreServices()
+            .AddAzureStorage()
+          ;
+        })
+        .ConfigureAppConfiguration(b =>
+        {
+          b.AddCommandLine(args);
+        })
+        .ConfigureLogging((context, b) =>
+        {
+          b.AddConsole();
+          b.SetMinimumLevel(LogLevel.Information);
         })
         .ConfigureServices((context, services) =>
         {
@@ -46,16 +47,15 @@ namespace RicardoGaefke.WebJob.XML
           services.AddSingleton<IQueue, Queue>();
           services.AddSingleton<IMyEmail, MyEmail>();
         })
-        .ConfigureLogging((context, b) =>
-        {
-            b.AddConsole();
-        })
-        .ConfigureWebJobs(b =>
-        {
-            b.AddAzureStorageCoreServices();
-            b.AddAzureStorage();
-        })
         .UseConsoleLifetime()
       ;
+
+      var host = builder.Build();
+
+      using (host)
+      {
+        await host.RunAsync();
+      }
+    }
   }
 }

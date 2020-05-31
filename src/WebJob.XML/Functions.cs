@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using System;
 using System.Xml;
 using Microsoft.Azure.WebJobs;
@@ -8,9 +9,11 @@ using RicardoGaefke.Data;
 using RicardoGaefke.Domain;
 using RicardoGaefke.Email;
 using RicardoGaefke.Storage;
+using RicardoGaefke.WebJob.XML.Filters;
 
 namespace RicardoGaefke.WebJob.XML
 {
+  [ErrorHandler]
   public class Functions
   {
     private readonly IOptions<Secrets.ConnectionStrings> _connStr;
@@ -34,7 +37,7 @@ namespace RicardoGaefke.WebJob.XML
       _queue = Queue;
     }
 
-    public async void ProcessQueueMessageWebJobXml
+    public async Task ProcessQueueMessageWebJobXml
     (
       [QueueTrigger("webjob-xml")]
       string message,
@@ -43,39 +46,31 @@ namespace RicardoGaefke.WebJob.XML
       ILogger logger
     )
     {
-      try
+      Inserted myFiles = _myFiles.GetFileInfo(Convert.ToInt32(message));
+
+      if (myFiles.Fail)
       {
-        Inserted myFiles = _myFiles.GetFileInfo(Convert.ToInt32(message));
-
-        if (myFiles.Fail)
-        {
-          _queue.SaveMessage("webjob-xml-poison", message);
-          return;
-        }
-
-        string fileName = $"{myFiles.GUID}.xml", fileNameJson = $"{myFiles.GUID}.json";
-
-        XmlDocument doc = new XmlDocument();
-        doc.Load(_blob.Download(fileName).Content);
-
-        string json = JsonConvert.SerializeXmlNode(doc, Newtonsoft.Json.Formatting.Indented);
-
-        Image file = new Image(fileNameJson, json);
-
-        _blob.SaveJson(file);
-
-        Form mailMsg = new Form(myFiles.Name, myFiles.Email, fileNameJson);
-
-        string sgID = await _myEmail.SendSuccessMessage(mailMsg);
-
-        Inserted update = new Inserted(Convert.ToInt32(message), true, DequeueCount, sgID);
-
-        _myFiles.UpdateFileInfo(update);
+        throw new Exception("User's exception");
       }
-      catch (System.Exception)
-      {
-        _queue.SaveMessage("webjob-xml-poison", message);
-      }
+
+      string fileName = $"{myFiles.GUID}.xml", fileNameJson = $"{myFiles.GUID}.json";
+
+      XmlDocument doc = new XmlDocument();
+      doc.Load(_blob.Download(fileName).Content);
+
+      string json = JsonConvert.SerializeXmlNode(doc, Newtonsoft.Json.Formatting.Indented);
+
+      Image file = new Image(fileNameJson, json);
+
+      _blob.SaveJson(file);
+
+      Form mailMsg = new Form(myFiles.Name, myFiles.Email, fileNameJson);
+
+      string sgID = await _myEmail.SendSuccessMessage(mailMsg);
+
+      Inserted update = new Inserted(Convert.ToInt32(message), true, DequeueCount, sgID);
+
+      _myFiles.UpdateFileInfo(update);
     }
 
     public async void ProcessQueueMessageWebJobXmlPoison
