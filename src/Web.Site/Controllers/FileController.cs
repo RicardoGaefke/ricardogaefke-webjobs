@@ -10,12 +10,12 @@ namespace RicardoGaefke.Web.Site
     [ApiController]
   public class FileController : ControllerBase
   {
-    private readonly ILogger<HomeController> _logger;
+    private readonly ILogger<FileController> _logger;
     private readonly IMyFiles _myFiles;
     private readonly IBlob _blob;
     private readonly IQueue _queue;
 
-    public FileController(ILogger<HomeController> logger, IMyFiles MyFiles, IBlob Blob, IQueue Queue)
+    public FileController(ILogger<FileController> logger, IMyFiles MyFiles, IBlob Blob, IQueue Queue)
     {
         _logger = logger;
         _myFiles = MyFiles;
