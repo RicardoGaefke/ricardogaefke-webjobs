@@ -3,7 +3,7 @@
 }
 
 <h1 class="ui dividing header">
-  How it Works
+  How It Works
 </h1>
 
 <p class="ui sub header">
@@ -25,7 +25,7 @@
 <p>
   WebJobs run connected to Azure Storage Queues and one of the best resources (in my opinion) is the ability to use
   a poison queue. When a run fails after X times (default is five), the message is sent to a <span class="ui label">-poison</span> queue.
-  So if for any reason your message falls in an error, you can have a second WebJob connected to
+  So if for any reason your message falls in an error, you can have a second WebJob Function connected to
   the <span class="ui label">-poison</span> queue to handle the situation.
 </p>
 
@@ -63,11 +63,11 @@
 <h3 class="ui header">Azure Pipelines</h3>
 <p>
   This application is automatically built, tested and deployed by Azure Pipelines. Each git push to <span class="ui label">master</span> or
-  to a PR is built and tested by Azure Pipelines. In case of <span class="ui label">master</span> if the build is ok the Release takes place and
+  to a PR is built and tested by Azure Pipelines. If the release of <span class="ui label">master</span> branch is ok the Release takes place and
   updates the app using Docker integration.
 </p>
 <p>
-  This is the public <a title="Azure Pipeline for ricardogaefke-webjobs" target="_blank" href="https://dev.azure.com/ricardogaefke/ricardogaefke-webjobs">Pipeline</a>.
+  This is the public <a title="Azure Pipeline for ricardogaefke-webjobs" target="_blank" href="https://dev.azure.com/ricardogaefke/ricardogaefke-webjobs">Azure Pipeline</a>.
 </p>
 
 <div class="ui divider"></div>

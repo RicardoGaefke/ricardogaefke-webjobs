@@ -19,29 +19,25 @@ namespace RicardoGaefke.WebJob.XML
     private readonly IOptions<Secrets.ConnectionStrings> _connStr;
     private readonly IMyFiles _myFiles;
     private readonly IBlob _blob;
-    private readonly IQueue _queue;
     private readonly IMyEmail _myEmail;
 
     public Functions(
       IOptions<Secrets.ConnectionStrings> ConnectionStrings,
       IMyFiles MyFiles,
       IBlob Blob,
-      IMyEmail MyEmail,
-      IQueue Queue
+      IMyEmail MyEmail
     )
     {
       _connStr = ConnectionStrings;
       _myFiles = MyFiles;
       _blob = Blob;
       _myEmail = MyEmail;
-      _queue = Queue;
     }
 
     public async Task ProcessQueueMessageWebJobXml
     (
       [QueueTrigger("webjob-xml")]
       string message,
-      string id,
       int DequeueCount,
       ILogger logger
     )
